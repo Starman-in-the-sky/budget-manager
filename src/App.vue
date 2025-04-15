@@ -1,32 +1,28 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+  <a-locale-provider :locale="ru_RU">
     <router-view />
-  </div>
+  </a-locale-provider>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import ru_RU from "ant-design-vue/es/locale/ru_RU";
+import { RouterView } from "vue-router";
+import { Component, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
 
-nav {
-  padding: 30px;
+@Component
+export default class App extends Vue {
+  ru_RU = ru_RU;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  @Action('main/getCurrencies') getCurrencies!: () => Promise<void>;
 
-    &.router-link-exact-active {
-      color: #42b983;
+  async created() {
+    try {
+      await this.getCurrencies();
+      console.log('Курсы валют загружены');
+    } catch (e) {
+      console.error('Ошибка при загрузке валют:', e);
     }
   }
 }
-</style>
+</script>

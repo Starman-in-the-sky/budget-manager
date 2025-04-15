@@ -1,12 +1,26 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex, { StoreOptions } from "vuex";
+import user from "./user";
+import main from "./main";
+import history from "./history";
+import { IUserState } from "./user/state";
+import { IMainState } from "./main/state";
+import { IHistoryState } from "./history/state";
 
-Vue.use(Vuex);
+export interface IRootState {
+  user: IUserState;
+  main: IMainState;
+  history: IHistoryState;
+}
 
-export default new Vuex.Store({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {},
-});
+export default function store() {
+  Vue.use(Vuex);
+
+  return new Vuex.Store<IRootState>({
+    modules: {
+      user,
+      main,
+      history,
+    },
+  });
+}
