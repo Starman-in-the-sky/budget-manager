@@ -1,7 +1,7 @@
 <template>
   <div class="information">
     <div class="information__content">
-      <div class="information__title">Кошелёк</div>
+      <div class="title">Кошелёк</div>
       <div class="information__bottom">
         <div
             v-for="(item, index) in blocks"
@@ -62,13 +62,6 @@ export default class Information extends Vue {
     flex-direction: column;
     width: 100%;
     gap: 16px;
-  }
-
-  &__title {
-    font-size: 32px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: $font-primary-color;
   }
 
   &__bottom {
