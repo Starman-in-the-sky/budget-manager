@@ -21,8 +21,18 @@
             <div class="title size16">
               {{ operation.label }}
             </div>
-            <div class="subtitle">
+            <div class="subtitle tags-line">
               {{ operation.category.name }}
+              <div class="tags">
+                <a-tag
+                    v-for="tag in operation.tags"
+                    :key="tag.name"
+                    :color="tag.color"
+                    class="tag"
+                >
+                  {{ tag.name }}
+                </a-tag>
+              </div>
             </div>
           </div>
         </div>
@@ -98,5 +108,22 @@ export default class OperationsHistory extends Vue {
       }
     }
   }
+}
+.tags-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  font-size: 10px;
+  line-height: 1;
 }
 </style>

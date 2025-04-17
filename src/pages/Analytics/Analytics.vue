@@ -1,5 +1,5 @@
 <template>
-  <div>Anal</div>
+  <div>Analitics</div>
 </template>
 
 <script lang="ts">
