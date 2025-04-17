@@ -1,5 +1,5 @@
 import { IUserState } from "@/store/user/state";
-import { TCategory, TTag } from "@/core/models";
+import { TCategory, TCurrency, TTag } from "@/core/models";
 import { MutationTree } from 'vuex';
 
 const mutation: MutationTree<IUserState> = {
@@ -12,7 +12,7 @@ const mutation: MutationTree<IUserState> = {
   setLastName(state: IUserState, lastName: string) {
     state.lastName = lastName;
   },
-  setCurrency(state: IUserState, currency: string) {
+  setCurrency(state: IUserState, currency: TCurrency) {
     state.currency = currency;
   },
   setCustomCategories(state: IUserState, categories: TCategory[]) {

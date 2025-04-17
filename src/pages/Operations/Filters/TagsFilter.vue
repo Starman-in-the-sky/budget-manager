@@ -1,5 +1,6 @@
 <template>
   <a-select
+    v-model="selectedTags"
     mode="multiple"
     placeholder="Тэги"
     class="filter tags-filter"
@@ -17,13 +18,28 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
+import { Getter, Mutation, State } from 'vuex-class';
 import { TTag } from "@/core/models";
 
 @Component({})
 export default class CategoryFilter extends Vue {
   @Getter('main/getAllTags')
   allTags!: TTag[];
+
+  @State(state => state.history.filters.tags)
+  filteredTags!: TTag[];
+
+  @Mutation('history/changeTagsFilter')
+  changeTagsFilter!: (tags: TTag[]) => void;
+
+  get selectedTags(): string[] {
+    return this.filteredTags.map(tag => tag.name || '');
+  }
+
+  set selectedTags(value: string[]) {
+    const selected = this.allTags.filter(tag => value.includes(tag.name || ''));
+    this.changeTagsFilter(selected);
+  }
 }
 </script>
 

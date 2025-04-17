@@ -12,6 +12,18 @@ const getters: GetterTree<IMainState, IRootState> = {
       return sum + (operation.value ?? 0);
     }, 0);
   },
+  getExpenses: (state, _getters, rootState) => {
+    return rootState.history.operations.reduce((sum, operation) => {
+      const value = operation.value ?? 0;
+      return value < 0 ? sum + value : sum;
+    }, 0);
+  },
+  getRefills: (state, _getters, rootState) => {
+    return rootState.history.operations.reduce((sum, operation) => {
+      const value = operation.value ?? 0;
+      return value > 0 ? sum + value : sum;
+    }, 0);
+  },
   getAllCategories: (state, _getters, rootState) => {
     const customCategories = rootState.user.customCategories || [];
     return [...state.defaultCategories, ...customCategories];

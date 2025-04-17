@@ -38,7 +38,7 @@ export default class Currencies extends Vue {
       height: 60px;
       border-radius: 15px;
       border-width: 2px;
-      border-color: $secondary-color;
+      border-color: $primary-color;
     }
   }
 }

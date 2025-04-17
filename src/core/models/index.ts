@@ -20,13 +20,13 @@ export enum ECurrenciesAbbreviations {
 }
 
 export type TCategory = {
-  name: string;
+  name?: string;
   icon?: string;
 }
 
 export type TTag = {
-  name: string;
-  color: string;
+  name?: string;
+  color?: string;
 }
 
 export type TCurrency = {

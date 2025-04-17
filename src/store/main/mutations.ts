@@ -7,7 +7,7 @@ const mutation: MutationTree<IMainState> = {
     state.defaultCategories = [...categories];
   },
   setCurrencies(state: IMainState, currencies: TCurrency[]) {
-    state.defaultCurrencies = [...currencies];
+    state.defaultCurrencies = [...state.defaultCurrencies,...currencies];
   },
   setTags(state: IMainState, tags: TTag[]) {
     state.defaultTags = [...tags];

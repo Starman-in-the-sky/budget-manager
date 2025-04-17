@@ -16,10 +16,10 @@ const getters: GetterTree<IHistoryState, IRootState> = {
 
       const opMoment = moment(op.eventDateTime, "DD-MM-YYYY HH:mm:ss");
 
-      if (dateFrom && opMoment.isBefore(moment(dateFrom, "DD-MM-YYYY"))) return false;
-      if (dateTo && opMoment.isAfter(moment(dateTo, "DD-MM-YYYY"))) return false;
-      if (minValue !== null && (op.value ?? 0) < minValue) return false;
-      if (maxValue !== null && (op.value ?? 0) > maxValue) return false;
+      if (dateFrom && opMoment.isBefore(moment(dateFrom, "DD-MM-YYYY HH:mm:ss"))) return false;
+      if (dateTo && opMoment.isAfter(moment(dateTo, "DD-MM-YYYY HH:mm:ss"))) return false;
+      if (minValue !== undefined && op.value !== undefined && op.value < minValue) return false;
+      if (maxValue !== undefined && op.value !== undefined && op.value > maxValue) return false;
 
       return true;
     });

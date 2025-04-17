@@ -1,4 +1,4 @@
-import { TCategory, TCurrency, TTag } from "@/core/models";
+import {ECurrenciesDenominations, ECurrenciesSigns, TCategory, TCurrency, TTag} from "@/core/models";
 
 export interface IMainState {
   defaultTypes: string[];
@@ -14,7 +14,7 @@ function state(): IMainState {
       'Расход',
     ],
     defaultCategories: [
-      { name: 'Еда', icon: 'food'},
+      { name: 'Продукты', icon: 'food'},
       { name: 'Транспорт', icon: 'transport'},
       { name: 'Перевод', icon: 'transfer'},
       { name: 'Зачисление', icon: 'wage'},
@@ -27,7 +27,13 @@ function state(): IMainState {
       { name: "Траdsdта", color: "red" },
       { name: "Лишнdsfdsdsее", color: "yellow" },
     ],
-    defaultCurrencies: [],
+    defaultCurrencies: [
+      {
+        sign: ECurrenciesSigns.RUB,
+        denomination: ECurrenciesDenominations.RUB,
+        rateToRuble: 1
+      },
+    ],
   }
 }
 

@@ -2,8 +2,8 @@ import { TCategory, TTag } from "@/core/models";
 
 export interface IOperation {
   eventDateTime: string,
-  value: number | null,
-  category: TCategory | null,
+  value?: number,
+  category?: TCategory,
   type: string,
   tags: TTag[],
   label: string,
@@ -22,13 +22,13 @@ export interface IHistoryState {
 }
 
 export interface IOperationsFilters {
-  type: string | undefined,
-  category: TCategory | null,
+  type?: string,
+  category?: TCategory,
   tags: TTag[],
-  dateFrom: string,
-  dateTo: string,
-  minValue: number | null,
-  maxValue: number | null,
+  dateFrom?: string,
+  dateTo?: string,
+  minValue?: number,
+  maxValue?: number,
 }
 
 function state(): IHistoryState {
@@ -49,7 +49,7 @@ function state(): IHistoryState {
       {
         eventDateTime: "17-04-2025 15:45:00",
         value: 5000,
-        category: { name: "Зарплата", icon: 'wage' },
+        category: { name: "Зачисление", icon: 'wage' },
         type: "Доход",
         tags: [{ name: "Работа", color: "#1890ff" }],
         label: "Зарплата",
@@ -67,7 +67,7 @@ function state(): IHistoryState {
       {
         eventDateTime: "15-04-2025 20:15:00",
         value: -3200,
-        category: { name: "Развлечения", icon: 'hobby' },
+        category: { name: "Хобби", icon: 'hobby' },
         type: "Расход",
         tags: [{ name: "Кино", color: "#eb2f96" }],
         label: "Кинотеатр",
@@ -78,19 +78,19 @@ function state(): IHistoryState {
         value: 180,
         category: { name: "Кофе", icon: 'food' },
         type: "Доход",
-        tags: [{ name: "Работа", color: "#1890ff" }],
+        tags: [{ name: "Трата", color: "#1890ff" }],
         label: "Кофе",
         description: "Капучино в офисе",
       },
     ],
     filters: {
       type: undefined,
-      category: null,
+      category: undefined,
       tags: [],
       dateFrom: '',
       dateTo: '',
-      minValue: null,
-      maxValue: null,
+      minValue: undefined,
+      maxValue: undefined,
     }
   }
 };

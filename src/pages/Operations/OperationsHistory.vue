@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="operations-history__day-operation-right title size24">
-          {{ operation.value }}{{ currencySign }}
+          {{ (operation.value / currency.rateToRuble).toFixed(2) }}{{ currency.sign }}
         </div>
       </a-button>
     </div>
@@ -38,15 +38,16 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
 import { IOperation, IOperationByDay } from "@/store/history/state";
-import { Getter } from "vuex-class";
+import { Getter, State } from "vuex-class";
+import {TCurrency} from "@/core/models";
 
 @Component({})
 export default class OperationsHistory extends Vue {
   @Prop()
   readonly operations!: IOperation[];
 
-  @Getter('user/getCurrencySign')
-  currencySign!: string;
+  @State(state => state.user.currency as unknown)
+  currency!: TCurrency;
 
   @Getter('history/groupedOperationsByDay')
   sortedByDayOperations!: IOperationByDay[];

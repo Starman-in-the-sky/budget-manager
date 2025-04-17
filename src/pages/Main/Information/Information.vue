@@ -17,7 +17,7 @@
               class="information__block-content-icon"
             />
             <div class="information__block-content-value">
-              {{ item.value }}{{ currencySign }}
+              {{ (item.value / currency.rateToRuble).toFixed(2) }}{{ currency.sign }}
             </div>
           </div>
         </div>
@@ -28,21 +28,28 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { Getter } from 'vuex-class';
+import { Getter, State } from 'vuex-class';
+import { TCurrency } from "@/core/models";
 
 @Component
 export default class Information extends Vue {
   @Getter('main/getBalance')
   userBalance!: number;
 
-  @Getter('user/getCurrencySign')
-  currencySign!: string;
+  @Getter('main/getExpenses')
+  userExpenses!: number;
+
+  @Getter('main/getRefills')
+  userRefills!: number;
+
+  @State(state => state.user.currency as unknown)
+  currency!: TCurrency;
 
   get blocks() {
     return [
       { label: 'Баланс', value: this.userBalance },
-      { label: 'Счёт №1' },
-      { label: 'Счёт №2' },
+      { label: 'Расходы', value: this.userExpenses },
+      { label: 'Доходы', value: this.userRefills },
     ];
   }
 }

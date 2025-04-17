@@ -1,6 +1,7 @@
 <template>
   <div class="date-filter">
     <a-date-picker
+      v-model="dateFrom"
       show-time
       format="DD-MM-YYYY HH:mm:ss"
       placeholder="От"
@@ -8,6 +9,7 @@
       class="date-input"
     />
     <a-date-picker
+      v-model="dateTo"
       show-time
       format="DD-MM-YYYY HH:mm:ss"
       placeholder="До"
@@ -19,10 +21,38 @@
 
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator';
+import { State, Mutation } from "vuex-class";
+import moment, { Moment } from "moment";
 
 @Component({})
-export default class CategoryType extends Vue {
+export default class DateFilter extends Vue {
+  @State((state: any) => state.history.filters.dateFrom)
+  dateFromState!: string;
 
+  @State((state: any) => state.history.filters.dateTo)
+  dateToState!: string;
+
+  @Mutation('history/changeDateFromFilter')
+  changeDateFromFilter!: (value: string) => void;
+
+  @Mutation('history/changeDateToFilter')
+  changeDateToFilter!: (value: string) => void;
+
+  get dateFrom(): Moment | null {
+    return this.dateFromState ? moment(this.dateFromState, 'DD-MM-YYYY HH:mm:ss') : null;
+  }
+  set dateFrom(value: Moment | null) {
+    const formatted = value ? value.format('DD-MM-YYYY HH:mm:ss') : '';
+    this.changeDateFromFilter(formatted);
+  }
+
+  get dateTo(): Moment | null {
+    return this.dateToState ? moment(this.dateToState, 'DD-MM-YYYY HH:mm:ss') : null;
+  }
+  set dateTo(value: Moment | null) {
+    const formatted = value ? value.format('DD-MM-YYYY HH:mm:ss') : '';
+    this.changeDateToFilter(formatted);
+  }
 }
 </script>
 
