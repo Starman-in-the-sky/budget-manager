@@ -1,7 +1,7 @@
 import { TCategory, TTag } from "@/core/models";
 
 export interface IOperation {
-  eventDateTime: string,
+  eventDateTime?: string,
   value?: number,
   category?: TCategory,
   type: string,
@@ -32,8 +32,10 @@ export interface IOperationsFilters {
 }
 
 function state(): IHistoryState {
-  return {
-    operations: [
+  const savedOperations = localStorage.getItem("operations");
+  const operations: IOperation[] = savedOperations
+    ? JSON.parse(savedOperations)
+    : [
       {
         eventDateTime: "17-04-2025 10:30:00",
         value: -1200,
@@ -82,17 +84,20 @@ function state(): IHistoryState {
         label: "Кофе",
         description: "Капучино в офисе",
       },
-    ],
+    ];
+
+  return {
+    operations,
     filters: {
       type: undefined,
       category: undefined,
       tags: [],
-      dateFrom: '',
-      dateTo: '',
+      dateFrom: "",
+      dateTo: "",
       minValue: undefined,
       maxValue: undefined,
-    }
-  }
+    },
+  };
 };
 
 export default state;

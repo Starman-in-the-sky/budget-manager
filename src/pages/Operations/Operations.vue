@@ -6,14 +6,25 @@
         type="primary"
         class="ui-button-primary operations-header__button"
         size="large"
+        @click="openCreateModal"
       >
         Добавить
       </a-button>
     </div>
     <Filters />
     <div class="operations-content">
-      <OperationsHistory :operations="filteredOperations"/>
+      <OperationsHistory
+          :operations="filteredOperations"
+          @edit-operation="openEditModal"
+      />
     </div>
+    <Modal
+        :visible="modalVisible"
+        :operation="selectedOperation"
+        @submit="handleSubmit"
+        @cancel="closeModal"
+        @delete="handleDelete"
+    />
   </div>
 </template>
 
@@ -23,18 +34,49 @@ import Filters from "@/pages/Operations/Filters/Filters.vue";
 import OperationsHistory from "@/pages/Operations/OperationsHistory.vue";
 import { State } from "vuex-class";
 import { IOperation } from "@/store/history/state";
+import Modal from "@/pages/Operations/Modal/Modal.vue";
 
 @Component({
-  components: { OperationsHistory, Filters }
+  components: { Modal, OperationsHistory, Filters }
 })
 export default class Operations extends Vue {
   @State(state => state.history.operations as unknown)
   readonly operations!: IOperation[];
 
   filteredOperations: IOperation[] = [];
+  modalVisible = false;
+  selectedOperation: IOperation | null = null;
 
   mounted() {
     this.filteredOperations = this.operations;
+  }
+
+  openCreateModal() {
+    this.selectedOperation = null;
+    this.modalVisible = true;
+  }
+
+  openEditModal(operation: IOperation) {
+    this.selectedOperation = operation;
+    this.modalVisible = true;
+  }
+
+  closeModal() {
+    this.modalVisible = false;
+  }
+
+  handleSubmit(operation: IOperation) {
+    if (this.selectedOperation) {
+      this.$store.commit('history/updateOperation', operation);
+    } else {
+      this.$store.commit('history/addOperation', operation);
+    }
+    this.closeModal();
+  }
+
+  handleDelete(operation: IOperation) {
+    console.log("Удаляем:", operation);
+    this.closeModal();
   }
 }
 </script>

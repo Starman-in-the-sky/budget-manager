@@ -11,6 +11,7 @@
         :key="operation.eventDateTime"
         class="operations-history__day-operation"
         type="link"
+        @click="$emit('edit-operation', operation)"
       >
         <div class="operations-history__day-operation-left">
           <a-avatar
