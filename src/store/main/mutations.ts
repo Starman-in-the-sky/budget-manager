@@ -4,13 +4,13 @@ import { MutationTree } from 'vuex';
 
 const mutation: MutationTree<IMainState> = {
   setCategories(state: IMainState, categories: TCategory[]) {
-    state.categories = [...categories];
+    state.defaultCategories = [...categories];
   },
   setCurrencies(state: IMainState, currencies: TCurrency[]) {
-    state.currencies = [...currencies];
+    state.defaultCurrencies = [...currencies];
   },
   setTags(state: IMainState, tags: TTag[]) {
-    state.tags = [...tags];
+    state.defaultTags = [...tags];
   },
 }
 

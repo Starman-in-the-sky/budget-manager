@@ -1,19 +1,27 @@
 export enum ECurrenciesDenominations {
-  Ruble = 'Рубль',
-  Dollar = 'Доллар',
-  Euro = 'Евро',
-  Pound = 'Фунт',
+  RUB = 'Рубль',
+  USD = 'Доллар',
+  EUR = 'Евро',
+  GBP = 'Фунт',
 }
 
 export enum ECurrenciesSigns {
-  Ruble = '₽',
-  Dollar = '$',
-  Euro = '€',
-  Pound = '£',
+  RUB = '₽',
+  USD = '$',
+  EUR = '€',
+  GBP = '£',
+}
+
+export enum ECurrenciesAbbreviations {
+  RUB = 'RUB',
+  USD = 'USD',
+  EUR = 'EUR',
+  GBP = 'GBP',
 }
 
 export type TCategory = {
   name: string;
+  icon?: string;
 }
 
 export type TTag = {

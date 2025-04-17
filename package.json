@@ -14,6 +14,7 @@
     "lodash": "^4.17.20",
     "lodash-decorators": "^6.0.1",
     "moment": "^2.29.1",
+    "phosphor-vue": "^1.4.2",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.2",
     "vue-property-decorator": "^9.0.0",

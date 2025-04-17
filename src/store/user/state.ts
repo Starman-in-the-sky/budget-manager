@@ -1,10 +1,10 @@
-import { TCategory, TTag } from "@/core/models";
+import { ECurrenciesAbbreviations, TCategory, TTag } from "@/core/models";
 
 export interface IUserState {
   firstName: string;
   lastName: string;
   balance: number;
-  currency: string;
+  currency: string | ECurrenciesAbbreviations.RUB;
   customCategories?: TCategory[];
   customTags?: TTag[];
 }
@@ -14,7 +14,7 @@ function state(): IUserState {
     firstName: "",
     lastName: "",
     balance: 0,
-    currency: "",
+    currency: ECurrenciesAbbreviations.RUB,
     customCategories: [],
     customTags: [],
   }

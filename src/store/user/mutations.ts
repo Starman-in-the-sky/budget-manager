@@ -3,6 +3,9 @@ import { TCategory, TTag } from "@/core/models";
 import { MutationTree } from 'vuex';
 
 const mutation: MutationTree<IUserState> = {
+  addCustomCategory(state, category: TCategory) {
+    state.customCategories?.push(category);
+  },
   setFirstName(state: IUserState, firstName: string) {
     state.firstName = firstName;
   },

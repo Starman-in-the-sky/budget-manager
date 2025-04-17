@@ -47,7 +47,7 @@ export default class MainLayout extends Vue {}
   }
   &__content {
     margin-top: 64px;
-    padding: 24px 400px;
+    padding: 24px 415px;
     background-color: #f6f7f8;
   }
 }

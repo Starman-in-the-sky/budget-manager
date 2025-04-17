@@ -16,9 +16,9 @@ const actions: ActionTree<IMainState, IRootState> = {
 
       const neededCodes = ['USD', 'EUR', 'GBP'];
       const currencyMap: Record<string, Partial<TCurrency>> = {
-        USD: { denomination: ECurrenciesDenominations.Dollar, sign: ECurrenciesSigns.Dollar },
-        EUR: { denomination: ECurrenciesDenominations.Euro, sign: ECurrenciesSigns.Euro },
-        GBP: { denomination: ECurrenciesDenominations.Pound, sign: ECurrenciesSigns.Pound },
+        USD: { denomination: ECurrenciesDenominations.USD, sign: ECurrenciesSigns.USD },
+        EUR: { denomination: ECurrenciesDenominations.EUR, sign: ECurrenciesSigns.EUR },
+        GBP: { denomination: ECurrenciesDenominations.GBP, sign: ECurrenciesSigns.GBP },
       };
 
       const valutes = Array.from(xml.querySelectorAll("Valute"));

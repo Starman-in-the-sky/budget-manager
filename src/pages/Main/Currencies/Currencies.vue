@@ -1,6 +1,6 @@
 <template>
   <div class="currencies">
-    <div class="currencies-title">Валюта</div>
+    <div class="title size28">Валюта</div>
     <div class="currencies-content">
       <a-input class="currencies-content__item"/>
       <a-input class="currencies-content__item"/>
@@ -28,12 +28,6 @@ export default class Currencies extends Vue {
   background-color: #fff;
   padding: 24px;
   gap: 10px;
-  &-title {
-    font-size: 28px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: $font-primary-color;
-  }
   &-content {
     width: 100%;
     padding: 0 50px;

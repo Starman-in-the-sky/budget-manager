@@ -1,7 +1,7 @@
 <template>
   <div class="information">
     <div class="information__content">
-      <div class="title">Кошелёк</div>
+      <div class="title size32">Кошелёк</div>
       <div class="information__bottom">
         <div
             v-for="(item, index) in blocks"
@@ -17,7 +17,7 @@
               class="information__block-content-icon"
             />
             <div class="information__block-content-value">
-              {{ item.value }}{{ userCurrency }}
+              {{ item.value }}{{ currencySign }}
             </div>
           </div>
         </div>
@@ -28,15 +28,15 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { State } from 'vuex-class';
+import { Getter } from 'vuex-class';
 
 @Component
 export default class Information extends Vue {
-  @State(state => state.user.balance as unknown)
+  @Getter('main/getBalance')
   userBalance!: number;
 
-  @State(state => state.user.currency as unknown)
-  userCurrency!: string;
+  @Getter('user/getCurrencySign')
+  currencySign!: string;
 
   get blocks() {
     return [
