@@ -16,6 +16,7 @@ export interface IUserState {
 }
 
 function state(): IUserState {
+  const savedCategories = localStorage.getItem("categories");
   return {
     firstName: "",
     lastName: "",
@@ -25,7 +26,9 @@ function state(): IUserState {
       denomination: ECurrenciesDenominations.RUB,
       rateToRuble: 1
     },
-    customCategories: [
+    customCategories: savedCategories
+    ? JSON.parse(savedCategories)
+    : [
       { name: 'Развлечения'}
     ],
     customTags: [],

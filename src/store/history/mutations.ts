@@ -3,10 +3,6 @@ import { MutationTree } from 'vuex';
 import { TTag } from "@/core/models";
 
 const mutation: MutationTree<IHistoryState> = {
-  addOperationCategories(state, newOperations: IOperation[]) {
-    state.operations = [...state.operations, ...newOperations];
-    localStorage.setItem("operations", JSON.stringify(state.operations));
-  },
   changeTypeFilter(state, newValue: string | undefined){
     if (newValue === undefined) {
       state.filters.type = undefined;

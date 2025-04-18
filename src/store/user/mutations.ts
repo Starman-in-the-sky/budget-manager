@@ -5,6 +5,7 @@ import { MutationTree } from 'vuex';
 const mutation: MutationTree<IUserState> = {
   addCustomCategory(state, category: TCategory) {
     state.customCategories?.push(category);
+    localStorage.setItem("categories", JSON.stringify(state.customCategories));
   },
   setFirstName(state: IUserState, firstName: string) {
     state.firstName = firstName;
