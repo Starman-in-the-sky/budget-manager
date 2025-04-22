@@ -46,10 +46,10 @@ export default class DateFilter extends Vue {
     this.changeDateFromFilter(formatted);
   }
 
-  get dateTo(): Moment | null {
-    return this.dateToState ? moment(this.dateToState, 'DD-MM-YYYY HH:mm:ss') : null;
+  get dateTo(): Moment | undefined {
+    return this.dateToState ? moment(this.dateToState, 'DD-MM-YYYY HH:mm:ss') : undefined;
   }
-  set dateTo(value: Moment | null) {
+  set dateTo(value: Moment | undefined) {
     const formatted = value ? value.format('DD-MM-YYYY HH:mm:ss') : '';
     this.changeDateToFilter(formatted);
   }

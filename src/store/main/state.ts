@@ -24,8 +24,6 @@ function state(): IMainState {
     defaultTags: [
       { name: "Трата", color: "red" },
       { name: "Лишнее", color: "yellow" },
-      { name: "Траdsdта", color: "red" },
-      { name: "Лишнdsfdsdsее", color: "yellow" },
     ],
     defaultCurrencies: [
       {

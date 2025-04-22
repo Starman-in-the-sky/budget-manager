@@ -9,11 +9,11 @@
   >
     <a-form layout="vertical">
       <a-form-item label="Название операции">
-        <a-input v-model="form.label" />
+        <a-input v-model="form.label" size="large"/>
       </a-form-item>
 
       <a-form-item label="Описание">
-        <a-input v-model="form.description" />
+        <a-input v-model="form.description" size="large"/>
       </a-form-item>
 
       <a-form-item label="Дата и время">
@@ -21,23 +21,32 @@
           v-model="formDate"
           show-time
           format="DD-MM-YYYY HH:mm:ss"
+          size="large"
           style="width: 100%"
         />
       </a-form-item>
 
       <a-form-item label="Сумма">
-        <a-input-number v-model="form.value" style="width: 100%" />
+        <a-input-number
+          v-model="form.value"
+          style="width: 100%"
+          size="large"
+        />
       </a-form-item>
 
       <a-form-item label="Тип">
-        <a-select v-model="form.type">
+        <a-select v-model="form.type" size="large">
           <a-select-option value="Доход">Доход</a-select-option>
           <a-select-option value="Расход">Расход</a-select-option>
         </a-select>
       </a-form-item>
 
       <a-form-item label="Категория">
-        <a-select v-model="form.category.name" placeholder="Выберите категорию">
+        <a-select
+          v-model="form.category.name"
+          placeholder="Выберите категорию"
+          size="large"
+        >
           <a-select-option
             v-for="category in allCategories"
             :value="category.name"
@@ -49,7 +58,7 @@
 
       <a-form-item label="Теги">
         <a-select
-          v-model="form.tags"
+          v-model="formTags"
           mode="multiple"
           placeholder="Выберите теги"
           class="tags-filter"
@@ -81,7 +90,7 @@
         Удалить
       </a-button>
 
-      <a-button type="primary" @click="handleSubmit">
+      <a-button type="primary" @click="handleSubmit" class="ui-button-primary">
         {{ isEditMode ? 'Сохранить изменения' : 'Создать операцию' }}
       </a-button>
     </div>
@@ -103,6 +112,8 @@ export default class OperationModal extends Vue {
   @Prop({ default: null })
   operation!: IOperation | null;
 
+  originalOperationCopy: IOperation | null = null;
+
   form: IOperation = {
     eventDateTime: undefined,
     value: undefined,
@@ -119,21 +130,39 @@ export default class OperationModal extends Vue {
   @Getter('main/getAllTags')
   allTags!: TTag[];
 
-  get formDate(): Moment {
-    return moment(this.form.eventDateTime, 'DD-MM-YYYY HH:mm:ss');
+  get formDate(): Moment | null {
+    if (!this.form.eventDateTime) {
+      return null;
+    }
+
+    const date = moment(this.form.eventDateTime, 'DD-MM-YYYY HH:mm:ss', true);
+    return date.isValid() ? date : null;
   }
 
-  set formDate(date: Moment) {
-    this.form.eventDateTime = date.format('DD-MM-YYYY HH:mm:ss');
+  set formDate(date: Moment | null) {
+    this.form.eventDateTime = date ? date.format('DD-MM-YYYY HH:mm:ss') : undefined;
   }
 
   get isEditMode() {
     return !!this.operation;
   }
 
+  get formTags(): string[] {
+    return this.form.tags
+        .map(tag => tag.name)
+        .filter((name): name is string => !!name);
+  }
+
+  set formTags(tagNames: string[]) {
+    this.form.tags = this.allTags.filter(
+        tag => tag.name && tagNames.includes(tag.name)
+    );
+  }
+
   @Watch('operation', { immediate: true, deep: true })
   onOperationChanged(newOperation: IOperation | null) {
     if (newOperation) {
+      this.originalOperationCopy = JSON.parse(JSON.stringify(newOperation));
       this.form = JSON.parse(JSON.stringify(newOperation));
     } else {
       this.resetForm();
@@ -141,19 +170,25 @@ export default class OperationModal extends Vue {
   }
 
   handleCancel() {
-    this.resetForm();
+    if (this.originalOperationCopy) {
+      this.form = JSON.parse(JSON.stringify(this.originalOperationCopy));
+    } else {
+      this.resetForm();
+    }
     this.$emit('cancel');
   }
 
   handleSubmit() {
     this.$emit('submit', this.form);
     this.resetForm();
+    this.originalOperationCopy = null;
   }
 
   handleDelete() {
     this.$store.commit('history/deleteOperation', this.form);
     this.$emit('delete', this.form);
     this.resetForm();
+    this.originalOperationCopy = null;
   }
 
   resetForm() {

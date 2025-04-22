@@ -33,7 +33,7 @@ export interface IOperationsFilters {
 
 function state(): IHistoryState {
   const savedOperations = localStorage.getItem("operations");
-  const operations: IOperation[] = savedOperations
+  const operations: IOperation[] = (savedOperations && savedOperations !== "[]")
     ? JSON.parse(savedOperations)
     : [
       {
@@ -92,8 +92,8 @@ function state(): IHistoryState {
       type: undefined,
       category: undefined,
       tags: [],
-      dateFrom: "",
-      dateTo: "",
+      dateFrom: undefined,
+      dateTo: undefined,
       minValue: undefined,
       maxValue: undefined,
     },

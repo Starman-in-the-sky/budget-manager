@@ -31,8 +31,14 @@ function state(): IUserState {
     : [
       { name: 'Развлечения'}
     ],
-    customTags: [],
+    customTags: [
+      { name: "Магазин", color: "#ff4d4f" },
+      { name: "Семья", color: "#52c41a" },
+      { name: "Работа", color: "#1890ff" },
+      { name: "Метро", color: "#722ed1" },
+      { name: "Кино", color: "#eb2f96" },
+    ],
   }
-};
+}
 
 export default state;
